@@ -1,0 +1,7 @@
+{
+  "[restructuredtext][python]": {
+    "coc.preferences.formatOnSave": true
+  },
+  "python.formatting.provider": "black",
+  "pyright.organizeimports.provider": "isort"
+}
