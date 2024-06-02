@@ -47,7 +47,7 @@ packages = [
 [tool.poetry.dependencies]
 # Production dependencies.
 # Version syntax: https://python-poetry.org/docs/dependency-specification/
-python = "^3.6.0"
+python = ">=3.10.0,<4"
 aiohttp = "^3"
 asgiref = "^3"
 channels = "^4"
