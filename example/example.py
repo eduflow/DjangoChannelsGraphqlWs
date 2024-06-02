@@ -285,6 +285,7 @@ application = channels.routing.ProtocolTypeRouter(
     }
 )
 
+
 # -------------------------------------------------------------------- URL CONFIGURATION
 def graphiql(request):
     """Trivial view to serve the `graphiql.html` file."""

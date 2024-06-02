@@ -131,7 +131,17 @@ async def test_heavy_load(gql, sync_resolvers, requests_number):
         receive_waitlist += [client.transport.receive(), client.transport.receive()]
 
     start_ts = time.monotonic()
+
+    for idx, task in enumerate(send_waitlist):
+        if asyncio.iscoroutine(task):
+            send_waitlist[idx] = asyncio.create_task(task)
+
     await asyncio.wait(send_waitlist)
+
+    for idx, task in enumerate(receive_waitlist):
+        if asyncio.iscoroutine(task):
+            receive_waitlist[idx] = asyncio.create_task(task)
+
     responses, _ = await asyncio.wait(receive_waitlist)
     time_spent = time.monotonic() - start_ts
     print(
@@ -394,6 +404,11 @@ async def test_subscribe_and_many_unsubscribes(
             break
 
     print("Let's run all the tasks concurrently.")
+
+    for idx, task in enumerate(awaitables):
+        if asyncio.iscoroutine(task):
+            awaitables[idx] = asyncio.create_task(task)
+
     _, pending = await asyncio.wait(awaitables, timeout=wait_timeout)
 
     # Check that the server withstood the flow of subscribe-unsubscribe

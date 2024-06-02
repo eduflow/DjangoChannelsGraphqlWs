@@ -277,6 +277,9 @@ class GraphqlWsConsumer(ch_websocket.AsyncJsonWebsocketConsumer):
             waitlist += [self._keepalive_task]
 
         if waitlist:
+            for idx, task in enumerate(waitlist):
+                if asyncio.iscoroutine(task):
+                    waitlist[idx] = asyncio.create_task(task)
             await asyncio.wait(waitlist)
 
         self._subscriptions.clear()
@@ -352,6 +355,9 @@ class GraphqlWsConsumer(ch_websocket.AsyncJsonWebsocketConsumer):
                 error_msg,
             )
             LOG.warning("GraphQL WS Client error: %s", error_msg)
+
+        if asyncio.iscoroutine(task) or not asyncio.isfuture(task):
+            task = asyncio.create_task(task)
 
         # If strict ordering is required then simply wait until the
         # message processing is finished. Otherwise spawn a task so
@@ -456,7 +462,7 @@ class GraphqlWsConsumer(ch_websocket.AsyncJsonWebsocketConsumer):
         # unsubscription.
         await asyncio.wait(
             [
-                self.receive_json({"type": "stop", "id": sid})
+                asyncio.create_task(self.receive_json({"type": "stop", "id": sid}))
                 for sid in self._sids_by_group[group]
             ]
         )
@@ -751,10 +757,12 @@ class GraphqlWsConsumer(ch_websocket.AsyncJsonWebsocketConsumer):
         # subscription information into the registry.
         # NOTE: Update of `_sids_by_group` & `_subscriptions` must be
         # atomic i.e. without `awaits` in between.
-        waitlist = []
+        waitlist = [
+            asyncio.create_task(self._channel_layer.group_add(group, self.channel_name))
+            for group in groups
+        ]
         for group in groups:
             self._sids_by_group.setdefault(group, []).append(operation_id)
-            waitlist.append(self._channel_layer.group_add(group, self.channel_name))
         notifier_task = self._spawn_background_task(notifier())
         self._subscriptions[operation_id] = self._SubInf(
             groups=groups,
@@ -811,6 +819,10 @@ class GraphqlWsConsumer(ch_websocket.AsyncJsonWebsocketConsumer):
                 waitlist.append(
                     self._channel_layer.group_discard(group, self.channel_name)
                 )
+
+        for idx, task in enumerate(waitlist):
+            if asyncio.iscoroutine(task):
+                waitlist[idx] = asyncio.create_task(task)
         await asyncio.wait(waitlist)
 
         # Call the subscription class `unsubscribed` handler in a worker
