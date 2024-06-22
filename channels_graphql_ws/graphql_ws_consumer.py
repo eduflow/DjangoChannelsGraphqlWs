@@ -611,7 +611,7 @@ class GraphqlWsConsumer(ch_websocket.AsyncJsonWebsocketConsumer):
                     self.schema,
                     request_string=query,
                     operation_name=op_name,
-                    variables=variables,
+                    variable_values=variables,
                     context_value=context,
                     # NOTE: Wrap with `wrap_in_promise=False`, otherwise
                     # it raises `GraphQLError` with message:
