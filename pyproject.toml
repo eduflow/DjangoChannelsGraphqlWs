@@ -199,6 +199,10 @@ python_files = "**/test_*.py"
 #   - Force verbose output: output list of tests by default.
 addopts = "--cov --verbose"
 
+[tool.pytest-watcher]
+now = true
+ignore_patterns = ["*.py.*.py"]
+
 # ----------------------------------------------------------- PYDOCSTYLE
 # Pydocstyle configuration reference:
 # http://www.pydocstyle.org/en/latest/usage.html#available-options
