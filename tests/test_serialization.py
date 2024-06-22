@@ -171,7 +171,7 @@ async def test_timestamps_serialization(gql, transactional_db):
     del transactional_db
 
     # Used to verify serialization correctness in the end of the test.
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.UTC)
 
     print("Prepare the test setup: GraphQL backend classes.")
 
