@@ -38,7 +38,7 @@ import graphene_django.types
 import channels_graphql_ws
 
 # It is OK, Graphene works this way.
-# pylint: disable=no-self-use,unsubscriptable-object,invalid-name
+# pylint: disable=unsubscriptable-object,invalid-name
 
 # Fake storage for the chat history. Do not do this in production, it
 # lives only in memory of the running server and does not persist.

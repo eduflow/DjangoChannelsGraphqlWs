@@ -180,7 +180,7 @@ async def test_middleware_invocation_order(gql):
 
 
 # Mute Pytest for the Graphene DSL for the GraphQL setup.
-# pylint: disable=arguments-differ,no-self-use
+# pylint: disable=arguments-differ
 
 
 class OnTrigger(channels_graphql_ws.Subscription):

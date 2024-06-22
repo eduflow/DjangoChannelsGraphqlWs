@@ -75,7 +75,6 @@ async def test_context_lifetime(gql):
 
     print("Setup GraphQL backend and initialize GraphQL client.")
 
-    # pylint: disable=no-self-use
     class Query(graphene.ObjectType):
         """Root GraphQL query."""
 
