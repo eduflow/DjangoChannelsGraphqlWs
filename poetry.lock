@@ -1585,20 +1585,6 @@ files = [
 pylint = ">=1.7"
 
 [[package]]
-name = "pylint-quotes"
-version = "0.2.3"
-description = "Quote consistency checker for PyLint.."
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "pylint-quotes-0.2.3.tar.gz", hash = "sha256:2d6bb3fa8a1a85af3af8a0ca875a719ac5bcdb735c45756284699d809c109c95"},
-    {file = "pylint_quotes-0.2.3-py2.py3-none-any.whl", hash = "sha256:89decd985d3c019314da630f5e3fe0e0df951c2310525fbd6e710bca329c810e"},
-]
-
-[package.dependencies]
-pylint = ">=2.8.0"
-
-[[package]]
 name = "pyopenssl"
 version = "24.1.0"
 description = "Python wrapper module around the OpenSSL library"
@@ -2394,4 +2380,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<4"
-content-hash = "5cecd434388e8081dcc749cb25880c6c30e6e23906079e61acf7e7ee0fa3ca53"
+content-hash = "52dda7bc04f75b78a8c5577348cc86d30e5f5abce512a7eb46449ddade732d71"
