@@ -112,10 +112,9 @@ persistent = "no"
 # Allow to load C extension modules.
 unsafe-load-any-extension = "yes"
 [tool.pylint."MESSAGES CONTROL"]
-# bad-continuation: Black does the job, no need to check.
 # design: Do not count lines, members, ..., no use.
 # similarities: Duplication does not mean bad design by itself.
-disable = "bad-continuation,design,similarities"
+disable = "design,similarities"
 enable = "c-extension-no-member"
 [tool.pylint.BASIC]
 # It is OK to have 2-letters identifiers, e.g. 'id' or 'ok'. Also allow
