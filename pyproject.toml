@@ -63,6 +63,7 @@ black = { version = "*", allow-prereleases = true }
 channels-redis = "*"
 coverage = "*"
 graphene-django = "*"
+daphne = "*"
 ipython = "*"
 isort = {version = "*", extras = ["pyproject"]}
 mypy = "*"
